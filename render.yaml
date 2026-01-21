@@ -20,7 +20,8 @@ services:
         sync: false
 
   # Database (PostgreSQL)
-  - type: pgsql
+  - type: postgres
     name: thesis-db
     databaseName: thesis_database
     user: thesis_user
+    plan: free
