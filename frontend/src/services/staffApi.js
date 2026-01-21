@@ -147,6 +147,20 @@ export const staffThesesAPI = {
     const response = await staffApi.get('/staff/theses/recent_changes/');
     return response.data;
   },
+
+  /**
+   * Upload Excel file to import theses
+   */
+  uploadExcel: async (formData) => {
+    const response = await staffApi.post('/upload/excel/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
 };
 
 export default staffApi;
+
+export { authAPI, staffThesesAPI };

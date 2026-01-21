@@ -7,7 +7,8 @@ from .views import (
     health_check,
     login_view,
     logout_view,
-    current_user_view
+    current_user_view,
+    upload_excel
 )
 
 # Router pour les ViewSets
@@ -23,6 +24,9 @@ urlpatterns = [
     path('auth/login/', login_view, name='login'),
     path('auth/logout/', logout_view, name='logout'),
     path('auth/me/', current_user_view, name='current-user'),
+    
+    # Upload endpoint
+    path('upload/excel/', upload_excel, name='upload-excel'),
     
     # Endpoints personnalisés
     path('library-info/', library_info, name='library-info'),

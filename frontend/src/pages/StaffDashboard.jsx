@@ -11,12 +11,14 @@ import {
   FaSpinner, 
   FaSignOutAlt,
   FaFilter,
-  FaSync
+  FaSync,
+  FaFileExcel
 } from 'react-icons/fa';
 import { staffThesesAPI, authAPI } from '../services/staffApi';
 import StaffThesisTable from '../components/staff/StaffThesisTable';
 import AddEditThesisModal from '../components/staff/AddEditThesisModal';
 import ThesisHistoryModal from '../components/staff/ThesisHistoryModal';
+import ExcelUpload from '../components/staff/ExcelUpload';
 
 const StaffDashboard = ({ user, onLogout }) => {
   const navigate = useNavigate();
@@ -32,6 +34,7 @@ const StaffDashboard = ({ user, onLogout }) => {
   const [editingThesis, setEditingThesis] = useState(null);
   const [viewingHistory, setViewingHistory] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
+  const [showExcelUpload, setShowExcelUpload] = useState(false);
 
   useEffect(() => {
     loadTheses();
@@ -185,6 +188,14 @@ const StaffDashboard = ({ user, onLogout }) => {
               </button>
 
               <button
+                onClick={() => setShowExcelUpload(!showExcelUpload)}
+                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+              >
+                <FaFileExcel />
+                {showExcelUpload ? 'Masquer' : 'Import Excel'}
+              </button>
+
+              <button
                 onClick={() => {
                   setEditingThesis(null);
                   setShowAddModal(true);
@@ -202,6 +213,13 @@ const StaffDashboard = ({ user, onLogout }) => {
             {totalCount} thèse{totalCount > 1 ? 's' : ''} trouvée{totalCount > 1 ? 's' : ''}
           </div>
         </div>
+
+        {/* Excel Upload Section */}
+        {showExcelUpload && (
+          <div className="mb-6">
+            <ExcelUpload />
+          </div>
+        )}
 
         {/* Tableau */}
         {loading ? (

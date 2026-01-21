@@ -5,6 +5,8 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAu
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q, Count
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+import pandas as pd
+from io import BytesIO
 
 # Import from theses app
 from .models import Thesis, LibraryInfo, ThesisStatusHistory
@@ -369,3 +371,116 @@ def current_user_view(request):
         'email': request.user.email,
         'is_staff': request.user.is_staff,
     })
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def upload_excel(request):
+    """
+    Upload Excel file to import theses
+    """
+    if not request.user.is_staff:
+        return Response(
+            {'error': 'Permission denied. Staff only.'},
+            status=status.HTTP_403_FORBIDDEN
+        )
+    
+    if 'file' not in request.FILES:
+        return Response(
+            {'error': 'No file provided'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    excel_file = request.FILES['file']
+    clear_existing = request.POST.get('clear', 'false').lower() == 'true'
+    
+    try:
+        # Read Excel file
+        df = pd.read_excel(BytesIO(excel_file.read()))
+        
+        # Clean column names
+        df.columns = df.columns.str.strip()
+        
+        # Normalize column names
+        column_mapping = {}
+        for col in df.columns:
+            col_lower = col.lower()
+            if 'n°' in col_lower or 'numero' in col_lower:
+                column_mapping[col] = 'N°'
+            elif 'année' in col_lower or 'annee' in col_lower:
+                column_mapping[col] = 'année'
+            elif 'titre' in col_lower:
+                column_mapping[col] = 'Titre du TFE'
+            elif 'directeur' in col_lower:
+                column_mapping[col] = 'Directeur de Mémoire'
+        
+        df.rename(columns=column_mapping, inplace=True)
+        
+        # Check required columns
+        required_columns = ['N°', 'année', 'Titre du TFE', 'Directeur de Mémoire']
+        missing_columns = [col for col in required_columns if col not in df.columns]
+        
+        if missing_columns:
+            return Response(
+                {'error': f'Missing columns: {", ".join(missing_columns)}'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Clean data
+        df = df.dropna(subset=['N°', 'année', 'Titre du TFE'])
+        
+        # Clear existing data if requested
+        if clear_existing:
+            deleted_count = Thesis.objects.count()
+            Thesis.objects.all().delete()
+        else:
+            deleted_count = 0
+        
+        # Import data
+        created_count = 0
+        updated_count = 0
+        errors = []
+        
+        for index, row in df.iterrows():
+            try:
+                numero = int(row['N°'])
+                annee = int(row['année'])
+                titre = str(row['Titre du TFE']).strip()
+                directeur = str(row['Directeur de Mémoire']).strip() if pd.notna(row['Directeur de Mémoire']) else ''
+                
+                # Check if thesis exists
+                thesis, created = Thesis.objects.update_or_create(
+                    numero=numero,
+                    annee=annee,
+                    defaults={
+                        'titre': titre,
+                        'directeur': directeur,
+                        'disponible': True
+                    }
+                )
+                
+                if created:
+                    created_count += 1
+                else:
+                    updated_count += 1
+                    
+            except Exception as e:
+                errors.append(f'Row {index + 2}: {str(e)}')
+        
+        return Response({
+            'success': True,
+            'message': 'Import completed',
+            'stats': {
+                'deleted': deleted_count,
+                'created': created_count,
+                'updated': updated_count,
+                'errors': len(errors)
+            },
+            'errors': errors[:10]  # Return first 10 errors
+        })
+        
+    except Exception as e:
+        return Response(
+            {'error': f'Failed to process file: {str(e)}'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
