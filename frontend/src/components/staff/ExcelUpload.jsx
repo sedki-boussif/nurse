@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { FaUpload, FaFileExcel, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
-import { staffAPI } from '../../services/staffApi';
+import { staffThesesAPI } from '../../services/staffApi';
 
 const ExcelUpload = () => {
   const [file, setFile] = useState(null);
@@ -48,7 +48,7 @@ const ExcelUpload = () => {
       formData.append('file', file);
       formData.append('clear', clearExisting);
 
-      const response = await staffAPI.uploadExcel(formData);
+      const response = await staffThesesAPI.uploadExcel(formData);
       setResult(response);
       setFile(null);
       // Reset file input
