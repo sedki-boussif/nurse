@@ -1,0 +1,27 @@
+# Django Framework
+Django==5.0.1
+djangorestframework==3.14.0
+
+# Database
+psycopg2-binary==2.9.9  # PostgreSQL adapter
+dj-database-url==2.1.0  # For DATABASE_URL parsing
+
+# CORS Headers (pour permettre les requêtes depuis React)
+django-cors-headers==4.3.1
+
+# Excel/Data Processing
+pandas==2.1.4
+openpyxl==3.1.2  # Pour lire les fichiers .xlsx
+
+# Environment Variables
+python-decouple==3.8
+
+# Production Server
+gunicorn==21.2.0
+whitenoise==6.6.0  # For static files in production
+
+# Timezone Support
+pytz==2024.1
+
+# Development Tools (optionnel)
+django-debug-toolbar==4.2.0  # Pour le développement uniquement
