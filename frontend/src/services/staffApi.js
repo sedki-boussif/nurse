@@ -162,5 +162,3 @@ export const staffThesesAPI = {
 };
 
 export default staffApi;
-
-export { authAPI, staffThesesAPI };
