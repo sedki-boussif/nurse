@@ -60,7 +60,14 @@ function App() {
             <Route 
               path="/staff/login" 
               element={
-                user ? <Navigate to="/staff/dashboard" /> : <StaffLogin onLogin={handleLogin} />
+                user ? (
+                  <Navigate to="/staff/dashboard" />
+                ) : (
+                  <>
+                    {console.log('Rendering StaffLogin')}
+                    <StaffLogin onLogin={handleLogin} />
+                  </>
+                )
               } 
             />
             <Route 
