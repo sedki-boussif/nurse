@@ -20,6 +20,7 @@ class ThesisSerializer(serializers.ModelSerializer):
             'titre',
             'short_title',
             'directeur',
+            'disponible',
             'created_at',
             'updated_at'
         ]
@@ -43,7 +44,7 @@ class ThesisListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Thesis
-        fields = ['id', 'numero', 'annee', 'reference', 'short_title', 'directeur']
+        fields = ['id', 'numero', 'annee', 'reference', 'short_title', 'directeur', 'disponible']
     
     def get_short_title(self, obj):
         if len(obj.titre) > 100:

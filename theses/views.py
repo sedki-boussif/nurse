@@ -443,7 +443,17 @@ def upload_excel(request):
         
         for index, row in df.iterrows():
             try:
-                numero = int(row['N°'])
+                # Handle numero - can be int or string like '001/25'
+                numero_raw = str(row['N°']).strip()
+                try:
+                    numero = int(numero_raw)
+                except ValueError:
+                    # If it contains '/', take the first part
+                    if '/' in numero_raw:
+                        numero = int(numero_raw.split('/')[0])
+                    else:
+                        raise ValueError(f"Invalid numero format: {numero_raw}")
+                
                 annee = int(row['année'])
                 titre = str(row['Titre du TFE']).strip()
                 directeur = str(row['Directeur de Mémoire']).strip() if pd.notna(row['Directeur de Mémoire']) else ''

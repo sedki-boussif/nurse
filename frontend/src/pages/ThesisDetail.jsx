@@ -11,7 +11,9 @@ import {
   FaUserTie, 
   FaHashtag, 
   FaMapMarkerAlt,
-  FaSpinner 
+  FaSpinner,
+  FaCheckCircle,
+  FaTimesCircle
 } from 'react-icons/fa';
 import { thesesAPI } from '../services/api';
 
@@ -114,6 +116,25 @@ const ThesisDetail = () => {
                   <p className="text-xl font-semibold text-gray-900">{thesis.directeur}</p>
                 </div>
               </div>
+
+              {/* Statut de disponibilité */}
+              <div className={`flex items-start gap-4 p-4 rounded-lg ${
+                thesis.disponible ? 'bg-green-50' : 'bg-red-50'
+              }`}>
+                {thesis.disponible ? (
+                  <FaCheckCircle className="text-green-600 mt-1" />
+                ) : (
+                  <FaTimesCircle className="text-red-600 mt-1" />
+                )}
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">Disponibilité</p>
+                  <p className={`text-xl font-semibold ${
+                    thesis.disponible ? 'text-green-700' : 'text-red-700'
+                  }`}>
+                    {thesis.disponible ? 'Disponible en bibliothèque' : 'Non disponible actuellement'}
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* Informations supplémentaires */}
@@ -146,7 +167,10 @@ const ThesisDetail = () => {
             </h2>
             
             <p className="text-blue-100 mb-6 text-sm">
-              Cette thèse est disponible en consultation à la bibliothèque universitaire.
+              {thesis.disponible 
+                ? 'Cette thèse est disponible en consultation à la bibliothèque universitaire.'
+                : 'Cette thèse n\'est pas disponible actuellement. Veuillez contacter le bibliothécaire pour plus d\'informations.'
+              }
             </p>
 
             <div className="space-y-4 mb-6">
