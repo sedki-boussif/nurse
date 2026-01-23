@@ -317,8 +317,6 @@ def health_check(request):
 # Authentication Views
 @api_view(['POST'])
 @permission_classes([AllowAny])
-@api_view(['POST'])
-@permission_classes([AllowAny])
 def login_view(request):
     """
     Connexion utilisateur
@@ -326,13 +324,26 @@ def login_view(request):
     username = request.data.get('username')
     password = request.data.get('password')
     
+    print(f"Login attempt - Username: {username}, Password provided: {'Yes' if password else 'No'}")
+    
     if not username or not password:
         return Response(
             {'error': 'Username and password are required'},
             status=status.HTTP_400_BAD_REQUEST
         )
     
+    # Check if user exists
+    try:
+        user_exists = User.objects.filter(username=username).exists()
+        print(f"User '{username}' exists: {user_exists}")
+        if user_exists:
+            user_obj = User.objects.get(username=username)
+            print(f"User is_staff: {user_obj.is_staff}, is_superuser: {user_obj.is_superuser}")
+    except Exception as e:
+        print(f"Error checking user: {e}")
+    
     user = authenticate(request, username=username, password=password)
+    print(f"Authentication result: {user is not None}")
     
     if user is not None:
         login(request, user)
