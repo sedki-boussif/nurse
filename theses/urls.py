@@ -8,7 +8,8 @@ from .views import (
     login_view,
     logout_view,
     current_user_view,
-    upload_excel
+    upload_excel,
+    init_superuser
 )
 
 # Router pour les ViewSets
@@ -27,6 +28,9 @@ urlpatterns = [
     
     # Upload endpoint
     path('upload/excel/', upload_excel, name='upload-excel'),
+    
+    # Initialize superuser (temporary)
+    path('init-superuser/', init_superuser, name='init-superuser'),
     
     # Endpoints personnalisés
     path('library-info/', library_info, name='library-info'),

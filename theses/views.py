@@ -3,6 +3,7 @@ from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAuthenticated
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.db.models import Q, Count
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 import pandas as pd
@@ -494,3 +495,29 @@ def upload_excel(request):
             {'error': f'Failed to process file: {str(e)}'},
             status=status.HTTP_400_BAD_REQUEST
         )
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def init_superuser(request):
+    """
+    Initialize default superuser (temporary endpoint for deployment)
+    Visit https://your-backend.onrender.com/api/init-superuser/ once to create the user
+    """
+    username = 'isepsi'
+    email = 'isepsi@example.com'
+    password = 'isepsi123'
+    
+    if User.objects.filter(username=username).exists():
+        return Response({
+            'message': f'Superuser "{username}" already exists',
+            'username': username
+        })
+    
+    User.objects.create_superuser(username, email, password)
+    return Response({
+        'success': True,
+        'message': f'Superuser "{username}" created successfully',
+        'username': username,
+        'password': 'isepsi123'
+    })
