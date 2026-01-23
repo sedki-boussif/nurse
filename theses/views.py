@@ -317,7 +317,8 @@ def health_check(request):
 # Authentication Views
 @api_view(['POST'])
 @permission_classes([AllowAny])
-@csrf_exempt
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def login_view(request):
     """
     Connexion utilisateur
