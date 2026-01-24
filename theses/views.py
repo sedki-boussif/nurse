@@ -347,14 +347,16 @@ def login_view(request):
     
     if user is not None:
         login(request, user)
-        # Force session to be saved
-        request.session.modified = True
-        request.session.save()
         
-        print(f"Session key after login: {request.session.session_key}")
-        print(f"Session data: {dict(request.session)}")
+        # Create a simple auth token (session key)
+        if not request.session.session_key:
+            request.session.create()
         
-        response = Response({
+        token = request.session.session_key
+        print(f"Generated token: {token}")
+        
+        return Response({
+            'token': token,
             'user': {
                 'id': user.id,
                 'username': user.username,
@@ -362,19 +364,6 @@ def login_view(request):
                 'is_staff': user.is_staff,
             }
         })
-        
-        # Manually set session cookie
-        response.set_cookie(
-            key='sessionid',
-            value=request.session.session_key,
-            max_age=1209600,  # 2 weeks
-            httponly=True,
-            secure=True,  # HTTPS only
-            samesite='None'
-        )
-        
-        print(f"Response cookies: {response.cookies}")
-        return response
     else:
         return Response(
             {'error': 'Invalid credentials'},

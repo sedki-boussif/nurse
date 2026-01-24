@@ -17,6 +17,12 @@ const staffApi = axios.create({
 
 // Intercepteur pour inclure le token CSRF si disponible
 staffApi.interceptors.request.use((config) => {
+  // Add auth token if available
+  const token = localStorage.getItem('authToken');
+  if (token) {
+    config.headers['Authorization'] = `Token ${token}`;
+  }
+  
   const csrfToken = getCookie('csrftoken');
   if (csrfToken) {
     config.headers['X-CSRFToken'] = csrfToken;
@@ -52,6 +58,10 @@ export const authAPI = {
       username,
       password,
     });
+    // Store the token
+    if (response.data.token) {
+      localStorage.setItem('authToken', response.data.token);
+    }
     return response.data;
   },
 
@@ -60,6 +70,7 @@ export const authAPI = {
    */
   logout: async () => {
     const response = await staffApi.post('/auth/logout/');
+    localStorage.removeItem('authToken');
     return response.data;
   },
 
