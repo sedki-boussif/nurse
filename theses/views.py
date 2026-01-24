@@ -347,7 +347,10 @@ def login_view(request):
     
     if user is not None:
         login(request, user)
-        return Response({
+        print(f"Session key after login: {request.session.session_key}")
+        print(f"Session data: {dict(request.session)}")
+        
+        response = Response({
             'user': {
                 'id': user.id,
                 'username': user.username,
@@ -355,6 +358,8 @@ def login_view(request):
                 'is_staff': user.is_staff,
             }
         })
+        print(f"Response cookies: {response.cookies}")
+        return response
     else:
         return Response(
             {'error': 'Invalid credentials'},
@@ -378,6 +383,11 @@ def current_user_view(request):
     """
     Récupérer l'utilisateur actuel
     """
+    print(f"current_user_view - Session key: {request.session.session_key}")
+    print(f"current_user_view - User authenticated: {request.user.is_authenticated}")
+    print(f"current_user_view - User: {request.user}")
+    print(f"current_user_view - Cookies: {request.COOKIES}")
+    
     return Response({
         'id': request.user.id,
         'username': request.user.username,
