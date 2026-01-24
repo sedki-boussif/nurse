@@ -149,7 +149,8 @@ CSRF_TRUSTED_ORIGINS = os.environ.get(
 ).split(',')
 
 # Session Configuration
-SESSION_COOKIE_SAMESITE = None
-SESSION_COOKIE_SECURE = not DEBUG  # True in production with HTTPS
-CSRF_COOKIE_SAMESITE = None
-CSRF_COOKIE_SECURE = not DEBUG  # True in production
+SESSION_COOKIE_SAMESITE = 'None'  # Allow cross-site cookies
+SESSION_COOKIE_SECURE = True  # Required when SameSite=None
+SESSION_COOKIE_HTTPONLY = True  # Security best practice
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
