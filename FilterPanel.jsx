@@ -74,6 +74,24 @@ const FilterPanel = ({ filters, onFilterChange, onReset }) => {
         </div>
       ) : (
         <>
+          {/* Filtre disponibles uniquement */}
+          <div className="mb-6 pb-6 border-b">
+            <label className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition">
+              <input
+                type="checkbox"
+                checked={filters.disponibles || false}
+                onChange={(e) => onFilterChange({
+                  ...filters,
+                  disponibles: e.target.checked
+                })}
+                className="w-4 h-4 text-blue-600 rounded"
+              />
+              <span className="text-sm font-medium text-gray-700">
+                Disponibles uniquement
+              </span>
+            </label>
+          </div>
+
           {/* Filtre par année */}
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-3">

@@ -1,15 +1,212 @@
-# Deployment Files for Render
+# Deployment Resources
 
-This folder contains all the configuration files needed to deploy your thesis platform to Render.
+This directory contains comprehensive deployment guides, scripts, and configuration templates for deploying the Thesis Library application.
 
-## Files Included
+## 📚 Documentation
 
-1. **settings_production.py** - Production-ready Django settings
+### Main Guides
+1. **[VPS_DEPLOYMENT_GUIDE.md](../VPS_DEPLOYMENT_GUIDE.md)** - Complete step-by-step VPS deployment guide (recommended for first-time deployment)
+2. **[QUICK_START.md](QUICK_START.md)** - Condensed guide for quick reference
+3. **[CONFIG_TEMPLATES.md](CONFIG_TEMPLATES.md)** - All configuration file templates in one place
+
+### Cloud Platform Deployment
+This folder also contains configuration for deploying to Render.com (see end of this file).
+
+## 🔧 Deployment Scripts
+
+All scripts are located in this `deployment/` directory:
+
+### Automated Setup
+- **`setup_vps.sh`** - Initial VPS setup (run once on fresh Ubuntu server)
+  - Installs all dependencies
+  - Configures PostgreSQL
+  - Sets up firewall
+  - Obtains SSL certificate
+
+### Deployment & Maintenance
+- **`deploy.sh`** - Deploy application updates
+  - Pulls latest code
+  - Updates dependencies
+  - Runs migrations
+  - Rebuilds frontend
+  - Restarts services
+
+- **`backup_database.sh`** - Backup PostgreSQL database
+  - Creates timestamped backup
+  - Compresses backup file
+  - Removes old backups (7-day retention)
+
+- **`health_check.sh`** - Monitor application health
+  - Checks all services status
+  - Monitors disk and memory usage
+  - Checks SSL expiration
+  - Reviews recent errors
+
+## 🚀 Quick Start for VPS Deployment
+
+### First Time Deployment
+
+1. **Prepare your VPS** (Ubuntu 20.04/22.04)
+   ```bash
+   ssh root@your_vps_ip
+   ```
+
+2. **Upload setup script**
+   ```bash
+   # On your local machine
+   scp deployment/setup_vps.sh root@your_vps_ip:/root/
+   
+   # On VPS
+   sudo bash setup_vps.sh
+   ```
+
+3. **Clone and deploy**
+   ```bash
+   su - deploy
+   git clone https://github.com/yourusername/librery_project.git
+   cd librery_project
+   # Follow VPS_DEPLOYMENT_GUIDE.md from Step 4 onwards
+   ```
+
+### Subsequent Updates
+
+```bash
+cd ~/librery_project
+./deployment/deploy.sh
+```
+
+## 📖 Documentation Overview
+
+| Document | Purpose | When to Use |
+|----------|---------|-------------|
+| [VPS_DEPLOYMENT_GUIDE.md](../VPS_DEPLOYMENT_GUIDE.md) | Complete VPS deployment instructions | First deployment, troubleshooting |
+| [QUICK_START.md](QUICK_START.md) | Quick reference | Regular updates, quick lookups |
+| [CONFIG_TEMPLATES.md](CONFIG_TEMPLATES.md) | All config file templates | Setting up services, configuration |
+
+## 🛠️ Script Usage
+
+### Make Scripts Executable
+```bash
+cd ~/librery_project/deployment
+chmod +x *.sh
+```
+
+### Run Scripts
+
+**Initial VPS Setup (run as root):**
+```bash
+sudo bash setup_vps.sh
+```
+
+**Deploy Updates:**
+```bash
+./deploy.sh
+```
+
+**Health Check:**
+```bash
+./health_check.sh
+```
+
+**Database Backup:**
+```bash
+./backup_database.sh
+```
+
+## 🔐 Security Checklist
+
+Before going live, ensure:
+- [ ] `DEBUG=False` in production
+- [ ] Strong `SECRET_KEY` generated
+- [ ] Database password is secure
+- [ ] `ALLOWED_HOSTS` properly set
+- [ ] SSL certificate installed
+- [ ] Firewall (UFW) enabled
+- [ ] Regular backups configured
+- [ ] Fail2Ban installed (optional but recommended)
+
+## 📊 Monitoring
+
+### View Logs
+```bash
+# Gunicorn errors
+sudo tail -f /var/log/gunicorn/error.log
+
+# Nginx errors
+sudo tail -f /var/log/nginx/error.log
+
+# Service logs
+sudo journalctl -u gunicorn -f
+```
+
+### Check Service Status
+```bash
+sudo systemctl status gunicorn nginx postgresql
+```
+
+### Run Health Check
+```bash
+./deployment/health_check.sh
+```
+
+## 🔄 Automated Tasks
+
+Set up automated backups and monitoring with cron:
+
+```bash
+crontab -e
+```
+
+Add:
+```cron
+# Daily database backup at 2 AM
+0 2 * * * /home/deploy/librery_project/deployment/backup_database.sh
+
+# Weekly health check every Monday at 9 AM
+0 9 * * 1 /home/deploy/librery_project/deployment/health_check.sh
+
+# Auto-renew SSL certificates
+0 3 * * * /usr/bin/certbot renew --quiet --post-hook "systemctl reload nginx"
+```
+
+## 🆘 Troubleshooting
+
+### Common Issues
+
+**502 Bad Gateway:**
+```bash
+sudo systemctl restart gunicorn nginx
+sudo journalctl -u gunicorn --since today
+```
+
+**Static Files Not Loading:**
+```bash
+cd ~/librery_project
+source venv/bin/activate
+python manage.py collectstatic --noinput
+sudo systemctl restart gunicorn
+```
+
+**Database Connection Errors:**
+```bash
+sudo systemctl status postgresql
+# Check DATABASE_URL in .env
+```
+
+See [VPS_DEPLOYMENT_GUIDE.md - Troubleshooting Section](../VPS_DEPLOYMENT_GUIDE.md#12-troubleshooting) for more details.
+
+---
+
+# Alternative: Render.com Deployment
+
+## Files Included for Render
+
+1. **settings_production.py** - Production-ready Django settings for Render
 2. **requirements_production.txt** - Production dependencies with deployment packages
 3. **build.sh** - Build script for Render
 4. **render.yaml** - Render service configuration
 
-## Deployment Instructions
+## Deployment Instructions for Render
 
 ### Step 1: Prepare Your Repository
 

@@ -19,6 +19,7 @@ const Home = () => {
   const [filters, setFilters] = useState({
     annee: null,
     directeur: null,
+    disponibles: false,
   });
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -78,7 +79,7 @@ const Home = () => {
 
   // Réinitialiser les filtres
   const handleResetFilters = () => {
-    setFilters({ annee: null, directeur: null });
+    setFilters({ annee: null, directeur: null, disponibles: false });
     setSearchQuery('');
     setCurrentPage(1);
   };
@@ -130,7 +131,7 @@ const Home = () => {
                 </p>
               </div>
               
-              {(searchQuery || filters.annee || filters.directeur) && (
+              {(searchQuery || filters.annee || filters.directeur || filters.disponibles) && (
                 <button
                   onClick={handleResetFilters}
                   className="text-sm text-blue-600 hover:text-blue-800 font-medium"

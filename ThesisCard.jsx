@@ -5,17 +5,38 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaCalendar, FaUserTie, FaArrowRight, FaHashtag } from 'react-icons/fa';
+import { FaCalendar, FaUserTie, FaArrowRight, FaHashtag, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 const ThesisCard = ({ thesis }) => {
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition p-6 border border-gray-100">
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
         <div className="flex-grow">
-          {/* Numéro de référence */}
-          <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
-            <FaHashtag size={10} />
-            <span>Réf: {thesis.numero}</span>
+          {/* Numéro de référence et disponibilité */}
+          <div className="flex items-center gap-3 text-xs mb-2">
+            <div className="flex items-center gap-2 text-gray-500">
+              <FaHashtag size={10} />
+              <span>Réf: {thesis.numero}</span>
+            </div>
+            <span
+              className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
+                thesis.disponible
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-red-100 text-red-800'
+              }`}
+            >
+              {thesis.disponible ? (
+                <>
+                  <FaCheckCircle size={10} />
+                  Disponible
+                </>
+              ) : (
+                <>
+                  <FaTimesCircle size={10} />
+                  Emprunté
+                </>
+              )}
+            </span>
           </div>
 
           {/* Titre */}
