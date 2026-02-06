@@ -1,5 +1,5 @@
 /**
- * Tableau de gestion des thèses pour le personnel
+ * Tableau de gestion des PFE pour le personnel
  * src/components/staff/StaffThesisTable.jsx
  */
 
@@ -23,7 +23,7 @@ const StaffThesisTable = ({
   if (!theses || theses.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-md p-12 text-center">
-        <p className="text-gray-600">Aucune thèse trouvée</p>
+        <p className="text-gray-600">Aucun PFE trouvé</p>
       </div>
     );
   }
@@ -154,7 +154,7 @@ const StaffThesisTable = ({
           </div>
           <div className="flex items-center gap-2">
             <FaTrash className="text-red-600" />
-            <span>Supprimer la thèse</span>
+            <span>Supprimer le PFE</span>
           </div>
           <div className="flex items-center gap-2">
             <FaToggleOn className="text-green-600" />

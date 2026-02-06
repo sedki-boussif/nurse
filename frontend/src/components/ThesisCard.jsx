@@ -1,5 +1,5 @@
 /**
- * Carte d'affichage d'une thèse
+ * Carte d'affichage d'un PFE
  * src/components/ThesisCard.jsx
  */
 

@@ -1,5 +1,5 @@
 /**
- * Liste des thèses avec pagination
+ * Liste des PFE avec pagination
  * src/components/ThesisList.jsx
  */
 
@@ -13,7 +13,7 @@ const ThesisList = ({ theses, totalCount, currentPage, onPageChange }) => {
 
   return (
     <div>
-      {/* Liste des cartes de thèses */}
+      {/* Liste des cartes de PFE */}
       <div className="space-y-4 mb-6">
         {theses.map((thesis) => (
           <ThesisCard key={thesis.id} thesis={thesis} />

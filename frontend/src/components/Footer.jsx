@@ -20,7 +20,7 @@ const Footer = () => {
               À Propos
             </h3>
             <p className="text-sm text-gray-400">
-              Plateforme de recherche des thèses infirmières pour faciliter
+              Plateforme de recherche des PFE infirmiers pour faciliter
               l'accès aux travaux de recherche des étudiants diplômés.
             </p>
           </div>
@@ -33,7 +33,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/" className="hover:text-blue-400 transition">
-                  Rechercher une thèse
+                  Rechercher un PFE
                 </Link>
               </li>
               <li>
@@ -54,7 +54,7 @@ const Footer = () => {
               <Link to="/bibliotheque" className="text-blue-400 hover:underline">
                 Bibliothèque
               </Link>
-              {' '}pour plus d'informations sur l'accès aux thèses.
+              {' '}pour plus d'informations sur l'accès aux PFE.
             </p>
           </div>
         </div>
@@ -79,7 +79,7 @@ const Footer = () => {
               Développé par <span className="text-lg">🦇</span> pour faciliter la recherche académique
             </p>
             <p className="text-xs text-gray-600 mt-2">
-              © {currentYear} Plateforme Thèses Infirmières. Tous droits réservés.
+              © {currentYear} Plateforme PFE Infirmiers. Tous droits réservés.
             </p>
           </div>
         </div>

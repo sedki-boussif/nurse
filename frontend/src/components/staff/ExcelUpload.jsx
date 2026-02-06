@@ -1,5 +1,5 @@
 /**
- * Excel Upload Component - For staff to upload thesis data
+ * Excel Upload Component - For staff to upload PFE data
  * src/components/staff/ExcelUpload.jsx
  */
 
@@ -65,7 +65,7 @@ const ExcelUpload = () => {
       <div className="flex items-center gap-3 mb-6">
         <FaFileExcel className="text-green-600 text-3xl" />
         <h2 className="text-2xl font-bold text-gray-900">
-          Importer des Thèses (Excel)
+          Importer des PFE (Excel)
         </h2>
       </div>
 
@@ -105,7 +105,7 @@ const ExcelUpload = () => {
             className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
           />
           <label htmlFor="clear-existing" className="text-sm text-gray-700">
-            Supprimer toutes les thèses existantes avant l'import
+            Supprimer tous les PFE existants avant l'import
           </label>
         </div>
 
@@ -114,7 +114,7 @@ const ExcelUpload = () => {
             <div className="flex items-start gap-2">
               <FaExclamationTriangle className="text-yellow-600 mt-0.5" />
               <p className="text-sm text-yellow-800">
-                <strong>Attention:</strong> Cette action supprimera toutes les thèses existantes dans la base de données avant d'importer les nouvelles.
+                <strong>Attention:</strong> Cette action supprimera tous les PFE existants dans la base de données avant d'importer les nouveaux.
               </p>
             </div>
           </div>
@@ -207,9 +207,9 @@ const ExcelUpload = () => {
           Le fichier doit contenir les colonnes suivantes:
         </p>
         <ul className="text-sm text-blue-700 list-disc list-inside space-y-1">
-          <li><strong>N°</strong> ou <strong>Numéro</strong> - Numéro de la thèse</li>
+          <li><strong>N°</strong> ou <strong>Numéro</strong> - Numéro du PFE</li>
           <li><strong>Année</strong> - Année de publication</li>
-          <li><strong>Titre</strong> ou <strong>Titre du TFE</strong> - Titre de la thèse</li>
+          <li><strong>Titre</strong> ou <strong>Titre du TFE</strong> - Titre du PFE</li>
           <li><strong>Directeur</strong> ou <strong>Directeur de Mémoire</strong> - Nom du directeur</li>
         </ul>
       </div>

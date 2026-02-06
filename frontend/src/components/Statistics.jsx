@@ -35,7 +35,7 @@ const Statistics = () => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-gray-600 text-sm font-medium mb-1">
-              Total des Thèses
+              Total des PFE
             </p>
             <p className="text-3xl font-bold text-gray-900">
               {stats.total_theses}

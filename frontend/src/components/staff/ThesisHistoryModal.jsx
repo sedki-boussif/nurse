@@ -51,7 +51,7 @@ const ThesisHistoryModal = ({ thesis, onClose }) => {
               Historique des changements
             </h2>
             <p className="text-sm text-gray-600 mt-1">
-              Thèse N° {thesis.numero} - {thesis.short_title || thesis.titre}
+              PFE N° {thesis.numero} - {thesis.short_title || thesis.titre}
             </p>
           </div>
           <button
@@ -77,7 +77,7 @@ const ThesisHistoryModal = ({ thesis, onClose }) => {
             <div className="bg-gray-50 rounded-lg p-12 text-center">
               <FaHistory className="text-gray-400 text-5xl mx-auto mb-4" />
               <p className="text-gray-600">
-                Aucun changement de statut enregistré pour cette thèse
+                Aucun changement de statut enregistré pour ce PFE
               </p>
             </div>
           ) : (

@@ -1,5 +1,5 @@
 /**
- * Page de détail d'une thèse
+ * Page de détail d'un PFE
  * src/pages/ThesisDetail.jsx
  */
 
@@ -39,7 +39,7 @@ const ThesisDetail = () => {
       const data = await thesesAPI.getById(id);
       setThesis(data);
     } catch (err) {
-      setError('Thèse introuvable');
+      setError('PFE introuvable');
       console.error(err);
     } finally {
       setLoading(false);
@@ -65,7 +65,7 @@ const ThesisDetail = () => {
             <h2 className="text-2xl font-bold text-red-800 mb-4">
               Erreur
             </h2>
-            <p className="text-red-600 mb-6">{error}</p>
+            <p className="text-red-600 mb-6">PFE introuvable</p>
             <button
               onClick={() => navigate('/')}
               className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
@@ -168,13 +168,13 @@ const ThesisDetail = () => {
           <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg shadow-lg p-6 text-white sticky top-24">
             <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
               <FaMapMarkerAlt />
-              Accéder à cette thèse
+              Accéder à ce PFE
             </h2>
             
             <p className="text-blue-100 mb-6 text-sm">
               {thesis.disponible 
-                ? 'Cette thèse est disponible en consultation à la bibliothèque universitaire.'
-                : 'Cette thèse n\'est pas disponible actuellement. Veuillez contacter le bibliothécaire pour plus d\'informations.'
+                ? 'Ce PFE est disponible en consultation à la bibliothèque universitaire.'
+                : 'Ce PFE n\'est pas disponible actuellement. Veuillez contacter le bibliothécaire pour plus d\'informations.'
               }
             </p>
 

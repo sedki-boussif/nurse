@@ -38,7 +38,7 @@ const Home = () => {
       setTheses(data.results || []);
       setTotalCount(data.count || 0);
     } catch (err) {
-      setError('Erreur lors du chargement des thèses');
+      setError('Erreur lors du chargement des PFE');
       console.error(err);
     } finally {
       setLoading(false);
@@ -89,7 +89,7 @@ const Home = () => {
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl shadow-xl p-8 md:p-12 mb-8 text-white">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            Recherchez une Thèse Infirmière
+            Recherchez un PFE Infirmier
           </h1>
           <p className="text-blue-100 mb-6 text-lg">
             Explorez les travaux de recherche des étudiants diplômés
@@ -98,7 +98,7 @@ const Home = () => {
           <SearchBar onSearch={handleSearch} />
           
           <p className="text-xs text-blue-200 mt-4">
-            💡 Recherchez par titre de thèse ou nom du directeur
+            💡 Recherchez par titre de PFE ou nom du directeur
           </p>
         </div>
       </div>
@@ -123,10 +123,10 @@ const Home = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-semibold text-gray-900">
-                  {searchQuery ? `Résultats pour "${searchQuery}"` : 'Toutes les thèses'}
+                  {searchQuery ? `Résultats pour "${searchQuery}"` : 'Tous les PFE'}
                 </h2>
                 <p className="text-sm text-gray-600">
-                  {totalCount} thèse{totalCount > 1 ? 's' : ''} trouvée{totalCount > 1 ? 's' : ''}
+                  {totalCount} PFE trouvé{totalCount > 1 ? 's' : ''}
                 </p>
               </div>
               
@@ -171,7 +171,7 @@ const Home = () => {
             <div className="bg-gray-50 rounded-lg p-12 text-center">
               <FaSearch className="text-gray-400 text-5xl mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-700 mb-2">
-                Aucune thèse trouvée
+                Aucun PFE trouvé
               </h3>
               <p className="text-gray-600 mb-4">
                 Essayez de modifier vos critères de recherche
@@ -180,7 +180,7 @@ const Home = () => {
                 onClick={handleResetFilters}
                 className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
-                Voir toutes les thèses
+                Voir tous les PFE
               </button>
             </div>
           )}

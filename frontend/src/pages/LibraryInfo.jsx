@@ -57,7 +57,7 @@ const LibraryInfo = () => {
             Bibliothèque Universitaire
           </h1>
           <p className="text-blue-100 text-lg">
-            Informations pratiques pour consulter les thèses
+            Informations pratiques pour consulter les PFE
           </p>
         </div>
       </div>
@@ -154,7 +154,7 @@ const LibraryInfo = () => {
             </div>
             <div className="flex-grow">
               <h2 className="text-xl font-bold text-gray-900 mb-3">
-                Comment Consulter une Thèse
+                Comment Consulter un PFE
               </h2>
               <div className="text-gray-700 whitespace-pre-line leading-relaxed">
                 {info?.instructions || 'Information non disponible'}
@@ -174,7 +174,7 @@ const LibraryInfo = () => {
           <ul className="space-y-2 text-sm text-blue-800">
             <li className="flex items-start gap-2">
               <span className="text-blue-600 mt-1">•</span>
-              <span>Notez le numéro de référence de la thèse avant de vous déplacer</span>
+              <span>Notez le numéro de référence du PFE avant de vous déplacer</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-600 mt-1">•</span>
@@ -182,7 +182,7 @@ const LibraryInfo = () => {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-600 mt-1">•</span>
-              <span>Les thèses sont consultables sur place uniquement</span>
+              <span>Les PFE sont consultables sur place uniquement</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-600 mt-1">•</span>

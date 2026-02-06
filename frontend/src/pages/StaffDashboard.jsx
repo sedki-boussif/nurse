@@ -203,14 +203,14 @@ const StaffDashboard = ({ user, onLogout }) => {
                 className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
                 <FaPlus />
-                Ajouter une thèse
+                Ajouter un PFE
               </button>
             </div>
           </div>
 
           {/* Résumé */}
           <div className="mt-4 text-sm text-gray-600">
-            {totalCount} thèse{totalCount > 1 ? 's' : ''} trouvée{totalCount > 1 ? 's' : ''}
+            {totalCount} PFE trouvé{totalCount > 1 ? 's' : ''}
           </div>
         </div>
 

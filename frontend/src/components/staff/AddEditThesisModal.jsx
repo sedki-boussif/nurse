@@ -1,5 +1,5 @@
 /**
- * Modal pour ajouter ou modifier une thèse
+ * Modal pour ajouter ou modifier un PFE
  * src/components/staff/AddEditThesisModal.jsx
  */
 
@@ -58,7 +58,7 @@ const AddEditThesisModal = ({ thesis, onSave, onClose }) => {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b">
           <h2 className="text-2xl font-bold text-gray-900">
-            {thesis ? 'Modifier la thèse' : 'Ajouter une nouvelle thèse'}
+            {thesis ? 'Modifier le PFE' : 'Ajouter un nouveau PFE'}
           </h2>
           <button
             onClick={onClose}
@@ -109,7 +109,7 @@ const AddEditThesisModal = ({ thesis, onSave, onClose }) => {
                   placeholder="Ex: 1, 2, 3..."
                 />
                 <p className="text-sm text-gray-500 mt-1">
-                  Numéro unique de la thèse (sera affiché au format XXX/YY)
+                  Numéro unique du PFE (sera affiché au format XXX/YY)
                 </p>
               </div>
             )}

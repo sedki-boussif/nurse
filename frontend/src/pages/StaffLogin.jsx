@@ -47,7 +47,7 @@ const StaffLogin = ({ onLogin }) => {
             Interface Personnel
           </h1>
           <p className="text-blue-200">
-            Gestion des Thèses Infirmières
+            Gestion des PFE Infirmiers
           </p>
         </div>
 
